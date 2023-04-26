@@ -1,4 +1,7 @@
 <%= form_with(model: post) do |form| %>
+  <script src="https://cdn.jsdelivr.net/npm/easymde@2.18.0/dist/easymde.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde@2.18.0/dist/easymde.min.css">
+
   <% if post.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
@@ -18,7 +21,7 @@
 
   <div>
     <%= form.label :content, style: "display: block" %>
-    <%= form.text_area :content %>
+    <textarea id="post_content" name="post[content]"><%= post.content %></textarea>
   </div>
 
   <div>
@@ -29,4 +32,12 @@
   <div>
     <%= form.submit %>
   </div>
+
+<script>
+  window.onload = function() {
+    var editor = new EasyMDE({
+      element: document.getElementById("post_content")
+    });
+  }
+</script>
 <% end %>
